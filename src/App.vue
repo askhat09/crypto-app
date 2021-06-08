@@ -60,6 +60,10 @@
         <div
           v-for="t of tickers"
           :key='t.name'
+          @click="sel = t"
+          :class="{
+            'ticker-item-border': sel === t
+          }"
           class="tickers-item"
         >
           <div class="tickers-item-info">
@@ -72,7 +76,7 @@
           </div>
           <div class="tickers-item-border"></div>
           <button
-            @click="deleteTicker(t)"
+            @click.stop="deleteTicker(t)"
             class="tickers-item-button"
           >
             <svg
@@ -91,9 +95,9 @@
         </div>
       </dl>
       <hr class="tickers-hr" />
-    <section class="ticker-graphic">
+    <section v-if="sel" class="ticker-graphic">
       <h3 class="ticker-graphic-heading">
-        VUE - USD
+        {{sel.name}} - USD
       </h3>
       <div class="ticker-graphic-info">
         <div
@@ -110,6 +114,7 @@
         ></div>
       </div>
       <button
+        @click="sel = null"
         type="button"
         class="ticker-graphic-button"
       >
@@ -124,7 +129,7 @@
           y="0"
           viewBox="0 0 511.76 511.76"
           style="enable-background:new 0 0 512 512"
-          xml:space="preserve"   
+          xml:space="preserve"
         >
           <g>
             <path
@@ -151,10 +156,11 @@ export default {
     return {
       ticker: '',
       tickers: [
-        {name: 'WTF - USD', price: '-'},
-        {name: 'BTC - USD', price: '47060'},
-        {name: 'DOGE - USD', price: '12640'},
-      ]
+        {name: 'WTF', price: '-'},
+        {name: 'BTC', price: '47060'},
+        {name: 'DOGE', price: '12640'},
+      ],
+      sel: null,
     }
   },
 

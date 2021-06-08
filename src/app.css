@@ -232,6 +232,12 @@ button {
     position: absolute;
     top: 0;
     right: 0;
+
+    cursor: pointer;
+}
+
+.ticker-item-border {
+    border: 3px solid #553c9a;
 }
 
 @media (min-width: 640px) {
@@ -265,8 +271,3 @@ button {
         max-width: 1280px;
     }
 }
-
-
-
-
-
