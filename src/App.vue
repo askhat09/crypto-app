@@ -10,6 +10,7 @@
           <div class="ticker-input_wrapper">
             <input
               v-model="ticker"
+              @keydown.enter="add"
               type="text"
               name="wallet"
               id="wallet"
