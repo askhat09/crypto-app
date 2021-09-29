@@ -9,7 +9,7 @@
               <input
                 v-model="ticker"
                 @keydown.enter="add"
-                @change="reset"
+                @input="reset"
                 type="text"
                 name="wallet"
                 id="wallet"
