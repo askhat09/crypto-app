@@ -132,10 +132,17 @@ export default {
     return {
       ticker: "",
       tickers: [],
+      coinlist: null,
       sel: null,
       graph: [],
       isTickerAlreadyAdded: false,
     };
+  },
+
+  async mounted() {
+    const t = await fetch(`https://min-api.cryptocompare.com/data/all/coinlist?api_key=6b99cd9d745149f02adeeba1d29fda9f1731c711a4aa078a94addf781a379630`)
+      const response = await t.json();
+      this.coinlist = response.Data
   },
 
   methods: {
