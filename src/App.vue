@@ -202,6 +202,7 @@ export default {
     },
 
     getAndAdd(matchedTicker) {
+      this.isTickerAlreadyAdded = false;
       this.ticker = matchedTicker;
       this.add();
     },
