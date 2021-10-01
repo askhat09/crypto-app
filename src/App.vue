@@ -9,7 +9,7 @@
               <input
                 v-model="ticker"
                 @keydown.enter="add"
-                @input="reset"
+                @input="getMatchedTickers"
                 type="text"
                 name="wallet"
                 id="wallet"
@@ -22,6 +22,7 @@
               <span
                 v-for="matchedTicker of matchedTickers.slice(0, 4)"
                 :key="matchedTicker"
+                @click="getAndAdd(matchedTicker)"
                 class="tag"
               >
                 {{ matchedTicker }}
@@ -171,6 +172,7 @@ export default {
 
       this.tickers.push(newTicker);
       this.ticker = "";
+      this.matchedTickers = [];
 
       setInterval(async () => {
         const f = await fetch(
@@ -186,7 +188,7 @@ export default {
       }, 3000);
     },
 
-    reset() {
+    getMatchedTickers() {
       this.isTickerAlreadyAdded = false;
       this.matchedTickers = [];
       Object.keys(this.coinlist).forEach(t => {
@@ -197,6 +199,11 @@ export default {
       if (!this.ticker) {
         this.matchedTickers = [];
       }
+    },
+
+    getAndAdd(matchedTicker) {
+      this.ticker = matchedTicker;
+      this.add();
     },
 
     deleteTicker(ticker) {
