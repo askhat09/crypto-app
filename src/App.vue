@@ -50,13 +50,23 @@
         </button>
         <hr class="tickers-hr" />
         <div class="filterAndPaginationWrapper">
-          <div class="filter">Фильтр: <input type="text" /></div>
+          <div class="filter">
+            Фильтр: <input v-model="filter" type="text" />
+          </div>
           <div class="paginationWrapper">
-            <button class="pagination-prev">
+            <button
+              v-if="page > 1"
+              @click="page = page - 1"
+              class="pagination-prev"
+            >
               <img src="/assets/images/left-arrow.svg" alt="prev" />
               Назад
             </button>
-            <button class="pagination-next">
+            <button
+              v-if="hasNextPage"
+              @click="page = page + 1"
+              class="pagination-next"
+            >
               Вперед
               <img src="/assets/images/right-arrow.svg" alt="next" />
             </button>
@@ -67,7 +77,7 @@
         <hr class="tickers-hr" />
         <dl class="tickers-wrapper">
           <div
-            v-for="t of tickers"
+            v-for="t of filteredTickers()"
             :key="t.name"
             @click="select(t)"
             :class="{
@@ -152,6 +162,9 @@ export default {
       ticker: "",
       tickers: [],
       coinlist: null,
+      filter: "",
+      page: 1,
+      hasNextPage: true,
       sel: null,
       graph: [],
       isTickerAlreadyAdded: false,
@@ -188,6 +201,19 @@ export default {
         }
       }, 3000);
     },
+
+    filteredTickers() {
+      const start = (this.page - 1) * 6;
+      const end = this.page * 6;
+      const filteredTickers = this.tickers.filter(ticker =>
+        ticker.name.includes(this.filter.toUpperCase())
+      );
+
+      this.hasNextPage = filteredTickers.length > end;
+
+      return filteredTickers.slice(start, end);
+    },
+
     add() {
       const newTicker = {
         name: this.ticker.toUpperCase(),
@@ -247,6 +273,12 @@ export default {
     select(ticker) {
       this.sel = ticker;
       this.graph = [];
+    }
+  },
+
+  watch: {
+    filter() {
+      this.page = 1;
     }
   }
 };
