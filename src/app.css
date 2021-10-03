@@ -240,6 +240,27 @@ button {
     border: 3px solid #553c9a;
 }
 
+.filterAndPaginationWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter input {
+    min-width: 250px;
+    margin-left: 20px;
+    padding: 5px;
+    border: 1px solid #718096;
+    border-radius: 5px;
+}
+
+.paginationWrapper button {
+    cursor: pointer;
+}
+
+.paginationWrapper img {
+    width: 9px;
+}
+
 @media (min-width: 640px) {
     .container {
         max-width: 640px;
@@ -254,9 +275,32 @@ button {
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .container {
         max-width: 768px;
+    }
+
+    .filterAndPaginationWrapper {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-content: space-between;
+        align-items: stretch;
+    }
+
+    .filter {
+        display: flex;
+        justify-content: space-evenly;
+        margin-left: 0;
+        margin-bottom: 12px;
+    }
+
+    .filter input {
+        min-width: 250px;
+    }
+
+    .paginationWrapper {
+        margin: 0 auto;
     }
 }
 

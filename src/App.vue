@@ -48,6 +48,20 @@
           </svg>
           Добавить
         </button>
+        <hr class="tickers-hr" />
+        <div class="filterAndPaginationWrapper">
+          <div class="filter">Фильтр: <input type="text" /></div>
+          <div class="paginationWrapper">
+            <button class="pagination-prev">
+              <img src="/assets/images/left-arrow.svg" alt="prev" />
+              Назад
+            </button>
+            <button class="pagination-next">
+              Вперед
+              <img src="/assets/images/right-arrow.svg" alt="next" />
+            </button>
+          </div>
+        </div>
       </section>
       <template v-if="tickers.length">
         <hr class="tickers-hr" />
