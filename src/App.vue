@@ -173,6 +173,15 @@ export default {
   },
 
   created() {
+    const windowData = Object.fromEntries(
+      new URL(window.location).searchParams.entries()
+    );
+    if (windowData.filter) {
+      this.filter = windowData.filter;
+    }
+    if (windowData.page) {
+      this.page = windowData.page;
+    }
     const localData = localStorage.getItem("cryptoTickers");
     this.tickers = JSON.parse(localData);
     this.tickers.forEach(ticker => this.subscribeToUpdate(ticker.name));
@@ -279,6 +288,18 @@ export default {
   watch: {
     filter() {
       this.page = 1;
+      history.pushState(
+        null,
+        document.title,
+        `${window.location.pathname}?filter=${this.filter}&page=${this.page}`
+      );
+    },
+    page() {
+      history.pushState(
+        null,
+        document.title,
+        `${window.location.pathname}?filter=${this.filter}&page=${this.page}`
+      );
     }
   }
 };
